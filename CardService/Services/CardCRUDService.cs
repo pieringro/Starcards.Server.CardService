@@ -44,8 +44,7 @@ namespace CardService.Services {
             var cardRepository = new Repository<CardCollection>();
             cardRepository.UpdateOne(id, cardIn).Wait();
 
-            Factory.Sender.publishMessage("hellooooo");
-            Factory.GetSenderCustom("CustomQueueeeee").publishMessage("hellooooo");
+            Factory.Sender.publishStructureMessage("update", cardIn);
         }
 
         public void Remove(CardCollection card) {

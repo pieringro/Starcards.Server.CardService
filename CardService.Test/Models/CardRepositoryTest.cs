@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using CardService.Models;
 using Microsoft.Extensions.Configuration;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.IdGenerators;
 using Xunit;
 
 namespace CardService.Test {
