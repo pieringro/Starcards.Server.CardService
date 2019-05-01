@@ -19,8 +19,8 @@ namespace CardService.Controllers {
         }
 
         [HttpGet("")]
-        public ActionResult<IList<CardCollection>> Get(string page = null) {
-            IList<CardCollection> cardResult = null;
+        public ActionResult<IList<Card>> Get(string page = null) {
+            IList<Card> cardResult = null;
             if (page != null) {
                 int pageNumber = 1;
                 try {
@@ -36,7 +36,7 @@ namespace CardService.Controllers {
         }
 
         [HttpGet("id/{id}")]
-        public ActionResult<CardCollection> GetOne(string id) {
+        public ActionResult<Card> GetOne(string id) {
             try {
                 var card = cardService.Get(id);
                 if (card == null) {
@@ -51,7 +51,7 @@ namespace CardService.Controllers {
 
         #region Create
         [HttpPost("create")]
-        public ActionResult<CardCollection> Create([FromBody] CardCollection card) {
+        public ActionResult<Card> Create([FromBody] Card card) {
             var cardResult = cardService.Create(card);
             return Ok(cardResult);
         }
@@ -59,7 +59,7 @@ namespace CardService.Controllers {
 
         #region Update
         [HttpPut("id/{id}")]
-        public IActionResult Edit(string id, [FromBody] CardCollection card) {
+        public IActionResult Edit(string id, [FromBody] Card card) {
             try {
                 cardService.Update(id, card);
             } catch (Exception e) {

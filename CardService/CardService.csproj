@@ -11,6 +11,7 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
         <PackageReference Include="MongoDB.Driver" Version="2.8.0" />
         <PackageReference Include="SimpleAMQPClient.Wrapper" Version="1.0.0" />
+        <PackageReference Include="SimpleMongoDBWrapper" Version="1.0.0" />
         <Content Include="*.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>

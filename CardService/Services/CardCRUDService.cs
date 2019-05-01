@@ -3,6 +3,7 @@ using System.Linq;
 using CardService.Models;
 using Microsoft.Extensions.Configuration;
 using SimpleAMQPWrapper;
+using SimpleMongoDBWrapper;
 
 namespace CardService.Services {
     public class CardCRUDService : BaseService {
@@ -11,49 +12,49 @@ namespace CardService.Services {
 
         }
 
-        public CardCollection Create(CardCollection card) {
-            var cardRepository = new Repository<CardCollection>();
+        public Card Create(Card card) {
+            var cardRepository = new Repository<Card>();
             var insertTask = cardRepository.InsertOne(card);
             var cardResult = insertTask.Result;
 
             return cardResult;
         }
 
-        public IList<CardCollection> GetAll() {
-            var cardRepository = new Repository<CardCollection>();
+        public IList<Card> GetAll() {
+            var cardRepository = new Repository<Card>();
             var getAllTask = cardRepository.GetAll();
             var cards = getAllTask.Result;
             return cards;
         }
 
-        public IList<CardCollection> GetPage(int page) {
-            var cardRepository = new Repository<CardCollection>();
+        public IList<Card> GetPage(int page) {
+            var cardRepository = new Repository<Card>();
             var getAllTask = cardRepository.GetPage(page);
             var cards = getAllTask.Result;
             return cards;
         }
 
-        public CardCollection Get(string id) {
-            var cardRepository = new Repository<CardCollection>();
+        public Card Get(string id) {
+            var cardRepository = new Repository<Card>();
             var getAllTask = cardRepository.GetById(id);
             var cards = getAllTask.Result;
             return cards;
         }
 
-        public void Update(string id, CardCollection cardIn) {
-            var cardRepository = new Repository<CardCollection>();
+        public void Update(string id, Card cardIn) {
+            var cardRepository = new Repository<Card>();
             cardRepository.UpdateOne(id, cardIn).Wait();
 
             Factory.Sender.publishStructureMessage("update", cardIn);
         }
 
-        public void Remove(CardCollection card) {
-            var cardRepository = new Repository<CardCollection>();
+        public void Remove(Card card) {
+            var cardRepository = new Repository<Card>();
             cardRepository.DeleteOne(card);
         }
 
         public void Remove(string id) {
-            var cardRepository = new Repository<CardCollection>();
+            var cardRepository = new Repository<Card>();
             cardRepository.DeleteOne(id);
         }
 
