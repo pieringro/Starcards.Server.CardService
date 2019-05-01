@@ -48,14 +48,20 @@ namespace CardService.Services {
             Factory.Sender.publishStructureMessage("update", cardIn);
         }
 
-        public void Remove(Card card) {
+        public void Delete(Card card) {
             var cardRepository = new Repository<Card>();
             cardRepository.DeleteOne(card);
+
+            Factory.Sender.publishStructureMessage("delete", card);
         }
 
-        public void Remove(string id) {
+        public void Delete(string id) {
             var cardRepository = new Repository<Card>();
             cardRepository.DeleteOne(id);
+
+            Factory.Sender.publishStructureMessage("delete", new Card() {
+                Id = id
+            });
         }
 
     }

@@ -74,7 +74,7 @@ namespace CardService.Controllers {
         [HttpDelete("id/{id}")]
         public IActionResult Delete(string id) {
             try {
-                cardService.Remove(id);
+                cardService.Delete(id);
             } catch (Exception e) {
                 Console.WriteLine(e);
                 return BadRequest(e.Message);
