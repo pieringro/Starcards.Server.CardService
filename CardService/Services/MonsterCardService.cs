@@ -47,25 +47,28 @@ namespace CardService.Services {
 
         public void Update(string id, MonsterCard cardIn) {
             var cardRepository = new Repository<MonsterCard>();
-            cardRepository.UpdateOne(id, cardIn).Wait();
-
-            Factory.Sender.publishStructureMessage("update", cardIn);
+            bool result = cardRepository.UpdateOne(id, cardIn).Result;
+            if (result) {
+                Factory.Sender.publishStructureMessage("update", cardIn);
+            }
         }
 
         public void Delete(MonsterCard card) {
             var cardRepository = new Repository<MonsterCard>();
-            cardRepository.DeleteOne(card).Wait();
-
-            Factory.Sender.publishStructureMessage("delete", card);
+            bool result = cardRepository.DeleteOne(card).Result;
+            if (result) {
+                Factory.Sender.publishStructureMessage("delete", card);
+            }
         }
 
         public void Delete(string id) {
             var cardRepository = new Repository<MonsterCard>();
-            cardRepository.DeleteOne(id).Wait();
-
-            Factory.Sender.publishStructureMessage("delete", new MonsterCard() {
-                Id = id
-            });
+            bool result = cardRepository.DeleteOne(id).Result;
+            if (result) {
+                Factory.Sender.publishStructureMessage("delete", new MonsterCard() {
+                    Id = id
+                });
+            }
         }
 
         #endregion
