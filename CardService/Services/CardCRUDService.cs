@@ -50,14 +50,14 @@ namespace CardService.Services {
 
         public void Delete(Card card) {
             var cardRepository = new Repository<Card>();
-            cardRepository.DeleteOne(card);
+            cardRepository.DeleteOne(card).Wait();
 
             Factory.Sender.publishStructureMessage("delete", card);
         }
 
         public void Delete(string id) {
             var cardRepository = new Repository<Card>();
-            cardRepository.DeleteOne(id);
+            cardRepository.DeleteOne(id).Wait();
 
             Factory.Sender.publishStructureMessage("delete", new Card() {
                 Id = id
