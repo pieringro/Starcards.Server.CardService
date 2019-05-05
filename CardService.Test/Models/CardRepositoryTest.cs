@@ -6,7 +6,7 @@ using Xunit;
 using SimpleMongoDBWrapper;
 
 namespace CardService.Test {
-    public class ContextRepositoryTest {
+    public class CardRepositoryTest {
 
         private IConfiguration getConfiguration() {
             var config = new ConfigurationBuilder()
@@ -21,13 +21,26 @@ namespace CardService.Test {
         }
 
         [Fact]
-        public void InsertOneTest() {
+        public void InsertOneCardTest() {
             var context = DBContext.GetInstance(getConfiguration());
             var card = new Card();
             card.Id = "5cc2091f2568e23d0ce2947a";
-            card.Names.Ita = "nome italiano";
-            card.Names.Eng = "english name";
+            card.Name.Ita = "nome italiano";
+            card.Name.Eng = "english name";
             var cardRepository = new Repository<Card>();
+
+            var insertTask = cardRepository.InsertOne(card);
+            var cardResult = insertTask.Result;
+        }
+
+        [Fact]
+        public void InsertOneMonsterCardTest() {
+            var context = DBContext.GetInstance(getConfiguration());
+            var card = new MonsterCard();
+            card.Id = "5cc2091f2568e23d0ce2947a";
+            card.Name.Ita = "nome italiano";
+            card.Name.Eng = "english name";
+            var cardRepository = new Repository<MonsterCard>();
 
             var insertTask = cardRepository.InsertOne(card);
             var cardResult = insertTask.Result;
@@ -47,7 +60,7 @@ namespace CardService.Test {
             var context = DBContext.GetInstance(getConfiguration());
             var cardRepository = new Repository<Card>();
 
-            var insertTask = cardRepository.Find(x => x.Names.Ita == "nome italiano");
+            var insertTask = cardRepository.Find(x => x.Name.Ita == "nome italiano");
             var cardsResult = insertTask.Result;
         }
 
@@ -66,8 +79,8 @@ namespace CardService.Test {
             var cardRepository = new Repository<Card>();
 
             var card = new Card();
-            card.Names.Ita = "nome italiano edit";
-            card.Names.Eng = "english name edit";
+            card.Name.Ita = "nome italiano edit";
+            card.Name.Eng = "english name edit";
 
             var task = cardRepository.UpdateOne("5cc2091f2568e23d0ce2947a", card);
             task.Wait();

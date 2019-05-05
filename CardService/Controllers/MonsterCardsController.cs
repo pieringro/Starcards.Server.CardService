@@ -10,17 +10,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CardService.Controllers {
     [Route("/api/[controller]")]
-    public class CardsController : Controller {
+    public class MonsterCardsController : Controller {
 
-        private readonly CardCRUDService cardService;
+        private readonly MonsterCardService cardService;
 
-        public CardsController(CardCRUDService cardService) {
+        public MonsterCardsController(MonsterCardService cardService) {
             this.cardService = cardService;
         }
 
         [HttpGet("")]
-        public ActionResult<IList<Card>> Get(string page = null) {
-            IList<Card> cardResult = null;
+        public ActionResult<IList<MonsterCard>> Get(string page = null) {
+            IList<MonsterCard> cardResult = null;
             if (page != null) {
                 int pageNumber = 1;
                 try {
@@ -36,7 +36,7 @@ namespace CardService.Controllers {
         }
 
         [HttpGet("id/{id}")]
-        public ActionResult<Card> GetOne(string id) {
+        public ActionResult<MonsterCard> GetOne(string id) {
             try {
                 var card = cardService.Get(id);
                 if (card == null) {
@@ -51,7 +51,7 @@ namespace CardService.Controllers {
 
         #region Create
         [HttpPost("create")]
-        public ActionResult<Card> Create([FromBody] Card card) {
+        public ActionResult<MonsterCard> Create([FromBody] MonsterCard card) {
             var cardResult = cardService.Create(card);
             return Ok(cardResult);
         }
@@ -59,7 +59,7 @@ namespace CardService.Controllers {
 
         #region Update
         [HttpPut("id/{id}")]
-        public IActionResult Edit(string id, [FromBody] Card card) {
+        public IActionResult Edit(string id, [FromBody] MonsterCard card) {
             try {
                 cardService.Update(id, card);
             } catch (Exception e) {

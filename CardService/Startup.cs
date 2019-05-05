@@ -29,7 +29,7 @@ namespace CardService {
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddScoped<CardCRUDService>();
+            services.AddScoped<MonsterCardService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
