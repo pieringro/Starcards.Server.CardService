@@ -9,11 +9,14 @@
         <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
-        <PackageReference Include="MongoDB.Driver" Version="2.8.0" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\Infrastructure\SimpleAMQPWrapper\Wrapper\Wrapper.csproj" />
-        <ProjectReference Include="..\..\Infrastructure\SimpleMongoDBWrapper\SimpleMongoDBWrapper\simplemongodbwrapper.csproj" />
+        <Reference Include="SimpleAMQPClient">
+            <HintPath>..\..\Infrastructure\lib\SimpleAMQPClient.dll</HintPath>
+        </Reference>
+        <Reference Include="SimpleMongoDBWrapper">
+            <HintPath>..\..\Infrastructure\lib\SimpleMongoDBWrapper.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Content Include="*.json">
