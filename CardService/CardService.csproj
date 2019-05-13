@@ -11,12 +11,8 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
     </ItemGroup>
     <ItemGroup>
-        <Reference Include="SimpleAMQPClient">
-            <HintPath>..\..\Infrastructure\lib\SimpleAMQPClient.dll</HintPath>
-        </Reference>
-        <Reference Include="SimpleMongoDBWrapper">
-            <HintPath>..\..\Infrastructure\lib\SimpleMongoDBWrapper.dll</HintPath>
-        </Reference>
+        <PackageReference Include="SimpleAMQPClient.Wrapper" Version="1.0.0" />
+        <PackageReference Include="SimpleMongoDBWrapper" Version="1.0.0" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="*.json">
