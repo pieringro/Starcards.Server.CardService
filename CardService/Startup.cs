@@ -43,7 +43,7 @@ namespace CardService {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            this.InitDbContext();
+            this.InitDb(env);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -56,11 +56,43 @@ namespace CardService {
             });
         }
 
-        private void InitDbContext() {
+        private void InitDb(IHostingEnvironment env) {
+            string configFile = this.getConfigFile(env);
             var config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile(configFile)
                 .Build();
-            DBContext.GetInstance(config);
+
+            InitDbContext(config);
+        }
+
+        private string getConfigFile(IHostingEnvironment env){
+            string configFile = "appsettings.json";
+            if (env.IsDevelopment()) {
+                configFile = "appsettings.Development.json";
+            }
+            return configFile;
+        }
+
+        private void InitDbContext(IConfiguration config) {
+            int retry = 0;
+            const int maxRetry = 3;
+            Exception ex = null;
+            while (retry < maxRetry) {
+                try {
+                    Console.WriteLine("Connect to MongoDB. Try number {0}", (retry + 1));
+                    DBContext.GetInstance(config);
+                    break;
+                } catch (Exception e) {
+                    ex = e;
+                    Console.WriteLine("Error during startup DB. Retry...");
+                    System.Threading.Thread.Sleep(1000);
+                }
+                retry++;
+            }
+            if (retry == maxRetry) {
+                throw ex;
+            }
+
         }
     }
 }
