@@ -3,7 +3,7 @@ WORKDIR /app
 
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
-COPY NuGet.Config ./
+COPY NuGet.Prod.Config ./NuGet.Config
 
 RUN apt-get update && apt-get install -y libcurl3
 #RUN dotnet restore --configfile NuGet.Config
